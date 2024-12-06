@@ -22,6 +22,7 @@
 - dynamic_network_architectures
 - batchgenerator
 
+
 ## AIIB2023 dataset
 ### Dataset link
 [https://codalab.lisn.upsaclay.fr/competitions/13238#learn_the_details-overview](https://codalab.lisn.upsaclay.fr/competitions/13238#learn_the_details-overview)
@@ -79,6 +80,8 @@ The data should be placed in ```"./data/raw_data/ASNR-MICCAI-BraTS2023-GLI-Chall
     ```bash
     python 5_compute_metrics_brats2023.py --pred=diffunet
     ```
+
+To simplify the running process, rather than predict the boundary information, we directly use the segmentation labels in the current version. In the future, we will continue to release more related codes.
 
 ## Acknowledgement
 
