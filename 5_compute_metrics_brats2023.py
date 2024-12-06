@@ -25,8 +25,8 @@ def cal_metric(gt, pred, voxel_spacing):
     # print(pred.sum())
     if pred.sum() > 0 and gt.sum() > 0:
         dice = metric.binary.dc(pred, gt)
-        # hd95 = metric.binary.hd95(pred, gt, voxelspacing=voxel_spacing)
-        return np.array([dice, 50])
+        hd95 = metric.binary.hd95(pred, gt, voxelspacing=voxel_spacing)
+        return np.array([dice, hd95])
     else:
         return np.array([0.0, 50])
 

@@ -3,7 +3,6 @@ from light_training.dataloading.dataset import get_train_test_loader_from_test_l
 import torch 
 import torch.nn as nn 
 from monai.inferers import SlidingWindowInferer
-from light_training.evaluation.metric import dice
 from light_training.trainer import Trainer
 from monai.utils import set_determinism
 set_determinism(123)
@@ -31,8 +30,6 @@ class BraTSTrainer(Trainer):
         image = batch["data"]
         label = batch["seg"]
         properties = batch["properties"]
-        # print(f"properties is {properties}")
-        # label = self.convert_labels(label)
         label = label[:, 0].long()
 
         return image, label, properties 
@@ -62,11 +59,7 @@ class BraTSTrainer(Trainer):
     def validation_step(self, batch):
         image, label, properties = self.get_input(batch)
         
-        # model, predictor, save_path = self.define_model_segmambav2()
-        # model, predictor, save_path = self.define_model_nnunet2d()
-        # model, predictor, save_path = self.define_model_diffunet()
-        model, predictor, save_path = self.define_model_diffseg3d()
-        # model, predictor, save_path = self.define_model_umamba()
+        model, predictor, save_path = self.define_model_diffunet()
 
         model_output = predictor.maybe_mirror_and_predict(image, model, device=device)
 
@@ -121,6 +114,5 @@ if __name__ == "__main__":
 
     trainer.validation_single_gpu(test_ds)
 
-    # print(f"result is {v_mean}")
 
 
